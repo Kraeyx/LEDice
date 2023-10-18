@@ -1,6 +1,9 @@
 #include <Arduino.h>
 
-const int LED_PINS[7] = {1, 2, 3, 4, 5, 6, 7};
+using namespace std;
+
+const int LED_COUNT = 7;
+const int LED_PINS[LED_COUNT] = {1, 2, 3, 4, 5, 6, 7};
 const int BUTTON_PIN = 12;
 // put function declarations here:
 int myFunction(int, int);
@@ -8,8 +11,8 @@ int myFunction(int, int);
  * Initialisiert die Pins und den Initialzustand
 */
 void setup() {
-  for(int i=0; i < sizeof(LED_PINS);i++) {
-  pinMode(LED_PINS[i], OUTPUT);
+  for(int i=0; i < LED_COUNT;i++) {
+    pinMode(LED_PINS[i], OUTPUT);
   }
   pinMode(BUTTON_PIN, INPUT);
 }
@@ -60,7 +63,7 @@ switch(num) {
  * Verdunkelt alle LEDs
 */
 void clearLED() {
-  for(int i = 0; i < sizeof(LED_PINS); i++) {
+  for(int i = 0; i < LED_COUNT; i++) {
     digitalWrite(LED_PINS[i], LOW);
   }
 }
