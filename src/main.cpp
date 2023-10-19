@@ -2,7 +2,7 @@
 
 const int LED_COUNT = 7;
 const int LED_PINS[LED_COUNT] = {6,7,8,5,2,3,4};
-const int BUTTON_PIN = 11;
+const int BUTTON_PIN = 12;
 
 /**
  * Initialisiert die Pins und den Initialzustand
@@ -12,6 +12,7 @@ void setup() {
   for(int i=0; i < LED_COUNT;i++) {
     pinMode(LED_PINS[i], OUTPUT);
   }
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
 }
 /**
  * Zeigt über die LEDs eine Nummer an
@@ -69,10 +70,11 @@ void clearLED() {
  * Testet auf einen Knopfdruck und führt, wenn nötig, den Würfelvorgang durch
 */
 void loop() {
+  if (!digitalRead(BUTTON_PIN)){
     clearLED();
-    delay(2000);
     int result = 1 + (rand() % 6);
     Serial.println(result);
     showNumber(result);
-    delay(2000);
+    delay(1000);
+    }
 }
