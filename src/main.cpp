@@ -1,17 +1,17 @@
 #include <Arduino.h>
 
 const int LED_COUNT = 7;
-const int LED_PINS[LED_COUNT] = {1, 2, 3, 4, 5, 6, 7};
-const int BUTTON_PIN = 12;
+const int LED_PINS[LED_COUNT] = {6,7,8,5,2,3,4};
+const int BUTTON_PIN = 11;
 
 /**
  * Initialisiert die Pins und den Initialzustand
 */
 void setup() {
+  Serial.begin(9600);
   for(int i=0; i < LED_COUNT;i++) {
     pinMode(LED_PINS[i], OUTPUT);
   }
-  pinMode(BUTTON_PIN, INPUT);
 }
 /**
  * Zeigt über die LEDs eine Nummer an
@@ -19,7 +19,7 @@ void setup() {
 void showNumber(int num) {
   switch(num) {
     case 1: 
-      digitalWrite(LED_PINS[5], HIGH);
+      digitalWrite(LED_PINS[3], HIGH);
       break;
     case 2: 
       digitalWrite(LED_PINS[0], HIGH);
@@ -69,9 +69,10 @@ void clearLED() {
  * Testet auf einen Knopfdruck und führt, wenn nötig, den Würfelvorgang durch
 */
 void loop() {
-  if(digitalRead(BUTTON_PIN)) {
     clearLED();
-    int result = 1 + rand() % 5;
+    delay(2000);
+    int result = 1 + (rand() % 6);
+    Serial.println(result);
     showNumber(result);
-  }
+    delay(2000);
 }
