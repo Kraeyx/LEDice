@@ -2,35 +2,39 @@
 #include <avr/sleep.h>
 
 const int LED_COUNT = 7;
-const int LED_PINS[LED_COUNT] = {6,7,8,5,2,3,4};
-const int BUTTON_PIN = 12;
-int clockWaiter = 0;
+const int LED_PINS[LED_COUNT] = {6,7,8,5,12,3,4};
+const int BUTTON_PIN = 2;
+int clockWaiter;
 
+/**
+ * Setzt den Taktzähler auf 0 und macht den Button eingabebereit
+*/
+void isAwake(void)
+{
+  clockWaiter = 0;
+  detachInterrupt(BUTTON_PIN);
+}
 
+/**
+ * Started den Sleep-Modus
+*/
+void enterSleepMode(void)
+{
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+    sleep_mode();
+}
 /**
  * Initialisiert die Pins und den Initialzustand
 */
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(19200);
+  clockWaiter = 0;
   for(int i=0; i < LED_COUNT;i++) {
     pinMode(LED_PINS[i], OUTPUT);
   }
   pinMode(BUTTON_PIN, INPUT_PULLUP);
 }
-void isAwake(void)
-{
-    detachInterrupt(0);
-}
 
-void enterSleepMode(void)
-{
-    attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), isAwake, LOW);
-    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-    sleep_enable();
-    sleep_mode();
-    sleep_disable();
-    clockWaiter = 0;
-}
 /**
  * Zeigt über die LEDs eine Nummer an
 */
@@ -88,15 +92,23 @@ void clearLED() {
 */
 void loop() { 
   if (!digitalRead(BUTTON_PIN)){
+    Serial.println("Angekommen");
     clearLED();
     int result = 1 + (rand() % 6);
-    Serial.println(result);
+    Serial.println("Nummer: " + result);
     showNumber(result);
+    clockWaiter = 0;
     delay(1000);
-    }
-    else if (clockWaiter >= 7){
+  }
+  else if (clockWaiter >= 1500){
+      attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), isAwake, LOW);
+      Serial.println("Entering sleep");
+      delay(1000);
+      clearLED();
       enterSleepMode();
-    }
-    else clockWaiter++;
+  }
+  else {
+      clockWaiter++;
+  }
     Serial.println(clockWaiter);
 }
