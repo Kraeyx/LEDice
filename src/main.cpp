@@ -1,8 +1,11 @@
 #include <Arduino.h>
+#include <avr/sleep.h>
 
 const int LED_COUNT = 7;
 const int LED_PINS[LED_COUNT] = {6,7,8,5,2,3,4};
 const int BUTTON_PIN = 12;
+int clockWaiter = 0;
+
 
 /**
  * Initialisiert die Pins und den Initialzustand
@@ -13,6 +16,20 @@ void setup() {
     pinMode(LED_PINS[i], OUTPUT);
   }
   pinMode(BUTTON_PIN, INPUT_PULLUP);
+}
+void isAwake(void)
+{
+    detachInterrupt(0);
+}
+
+void enterSleepMode(void)
+{
+    attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), isAwake, LOW);
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+    sleep_enable();
+    sleep_mode();
+    sleep_disable();
+    clockWaiter = 0;
 }
 /**
  * Zeigt über die LEDs eine Nummer an
@@ -69,7 +86,7 @@ void clearLED() {
 /**
  * Testet auf einen Knopfdruck und führt, wenn nötig, den Würfelvorgang durch
 */
-void loop() {
+void loop() { 
   if (!digitalRead(BUTTON_PIN)){
     clearLED();
     int result = 1 + (rand() % 6);
@@ -77,4 +94,9 @@ void loop() {
     showNumber(result);
     delay(1000);
     }
+    else if (clockWaiter >= 7){
+      enterSleepMode();
+    }
+    else clockWaiter++;
+    Serial.println(clockWaiter);
 }
