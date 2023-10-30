@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <avr/sleep.h>
+#include <LED_output.h>;
 
 const int LED_COUNT = 7;
 const int LED_PINS[LED_COUNT] = {6,7,8,5,12,3,4};
@@ -33,59 +34,9 @@ void setup() {
     pinMode(LED_PINS[i], OUTPUT);
   }
   pinMode(BUTTON_PIN, INPUT_PULLUP);
+  LED_output out(&LED_PINS[0], LED_COUNT);
 }
 
-/**
- * Zeigt über die LEDs eine Nummer an
-*/
-void showNumber(int num) {
-  switch(num) {
-    case 1: 
-      digitalWrite(LED_PINS[3], HIGH);
-      break;
-    case 2: 
-      digitalWrite(LED_PINS[0], HIGH);
-      digitalWrite(LED_PINS[6], HIGH);
-      break;
-    case 3:
-      digitalWrite(LED_PINS[0], HIGH);
-      digitalWrite(LED_PINS[3], HIGH);
-      digitalWrite(LED_PINS[6], HIGH);
-      break;
-    case 4: 
-      digitalWrite(LED_PINS[0], HIGH);
-      digitalWrite(LED_PINS[2], HIGH);
-      digitalWrite(LED_PINS[4], HIGH);
-      digitalWrite(LED_PINS[6], HIGH);
-      break;
-    case 5: 
-      digitalWrite(LED_PINS[0], HIGH);
-      digitalWrite(LED_PINS[2], HIGH);
-      digitalWrite(LED_PINS[3], HIGH);
-      digitalWrite(LED_PINS[4], HIGH);
-      digitalWrite(LED_PINS[6], HIGH);
-      break;
-    case 6:
-      digitalWrite(LED_PINS[0], HIGH);
-      digitalWrite(LED_PINS[1], HIGH);
-      digitalWrite(LED_PINS[2], HIGH);
-      digitalWrite(LED_PINS[4], HIGH);
-      digitalWrite(LED_PINS[5], HIGH);
-      digitalWrite(LED_PINS[6], HIGH);
-      break;
-    default: 
-      Serial.print("Fehler! Nummer ungültig");
-      break;
-    }
-}
-/**
- * Verdunkelt alle LEDs
-*/
-void clearLED() {
-  for(int i = 0; i < LED_COUNT; i++) {
-    digitalWrite(LED_PINS[i], LOW);
-  }
-}
 
 /**
  * Testet auf einen Knopfdruck und führt, wenn nötig, den Würfelvorgang durch
