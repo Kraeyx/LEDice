@@ -9,7 +9,7 @@ LED_output::LED_output(const int* pin, const int pinCount):_pins(pin), _pinCount
 /**
  * Verdunkelt alle LEDs
 */
-void clearLED() {
+void LED_output::clearLEDs() {
   for(int i = 0; i < _pinCount; i++) {
     digitalWrite(*(_pins+i), LOW);
   }
@@ -54,4 +54,9 @@ void LED_output::displayNumber(int num) {
       Serial.print("Fehler! Nummer " + String(num) + " ist ungültig");
       break;
     }
+}
+void LED_output::initPins() {
+    for(int i=0; i < _pinCount;i++) {
+    pinMode(*(_pins + i), OUTPUT);
+  }
 }

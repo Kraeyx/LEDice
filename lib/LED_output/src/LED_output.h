@@ -5,9 +5,11 @@
 class LED_output {
  public:
  LED_output(const int* pins, const int pinCount);
+ void displayNumber(int num);
+ void clearLEDs();
+ void initPins();
  private:
  const int* _pins;
  const int _pinCount;
- void displayNumber(int num);
 };
 #endif

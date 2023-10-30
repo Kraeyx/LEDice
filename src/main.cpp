@@ -5,6 +5,7 @@
 const int LED_COUNT = 7;
 const int LED_PINS[LED_COUNT] = {6,7,8,5,12,3,4};
 const int BUTTON_PIN = 2;
+LED_output out(&LED_PINS[0], LED_COUNT);
 int clockWaiter;
 
 /**
@@ -30,11 +31,8 @@ void enterSleepMode(void)
 void setup() {
   Serial.begin(19200);
   clockWaiter = 0;
-  for(int i=0; i < LED_COUNT;i++) {
-    pinMode(LED_PINS[i], OUTPUT);
-  }
+  out.initPins();
   pinMode(BUTTON_PIN, INPUT_PULLUP);
-  LED_output out(&LED_PINS[0], LED_COUNT);
 }
 
 
@@ -44,10 +42,10 @@ void setup() {
 void loop() { 
   if (!digitalRead(BUTTON_PIN)){
     Serial.println("Angekommen");
-    clearLED();
+    out.clearLEDs();
     int result = 1 + (rand() % 6);
     Serial.println("Nummer: " + result);
-    showNumber(result);
+    out.displayNumber(result);
     clockWaiter = 0;
     delay(1000);
   }
@@ -55,7 +53,7 @@ void loop() {
       attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), isAwake, LOW);
       Serial.println("Entering sleep");
       delay(1000);
-      clearLED();
+      out.clearLEDs();
       enterSleepMode();
   }
   else {
