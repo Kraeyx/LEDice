@@ -5,8 +5,9 @@
 const int LED_COUNT = 7;
 const int LED_PINS[LED_COUNT] = {6,7,8,5,12,3,4};
 const int BUTTON_PIN = 2;
-LED_output out(&LED_PINS[0], LED_COUNT);
+LED_output* out;
 int clockWaiter;
+boolean start;
 
 /**
  * Setzt den Taktzähler auf 0 und macht den Button eingabebereit
@@ -15,6 +16,8 @@ void isAwake(void)
 {
   clockWaiter = 0;
   detachInterrupt(BUTTON_PIN);
+  delay(200);
+  start = true;
 }
 
 /**
@@ -29,10 +32,13 @@ void enterSleepMode(void)
  * Initialisiert die Pins und den Initialzustand
 */
 void setup() {
-  Serial.begin(19200);
+  Serial.begin(38400);
   clockWaiter = 0;
-  out.initPins();
+  LED_output out_(&LED_PINS[0], LED_COUNT);
+  out = &out_;
+  (*out).initPins();
   pinMode(BUTTON_PIN, INPUT_PULLUP);
+  start = true;
 }
 
 
@@ -40,24 +46,29 @@ void setup() {
  * Testet auf einen Knopfdruck und führt, wenn nötig, den Würfelvorgang durch
 */
 void loop() { 
-  if (!digitalRead(BUTTON_PIN)){
-    Serial.println("Angekommen");
-    out.clearLEDs();
+  if (!start && !digitalRead(BUTTON_PIN)){
+    (*out).clearLEDs();
     int result = 1 + (rand() % 6);
     Serial.println("Nummer: " + result);
-    out.displayNumber(result);
+    delay(100);
+    (*out).displayNumber(result);
     clockWaiter = 0;
-    delay(1000);
+    delay(500);
   }
-  else if (clockWaiter >= 1500){
-      attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), isAwake, LOW);
-      Serial.println("Entering sleep");
-      delay(1000);
-      out.clearLEDs();
-      enterSleepMode();
+  else if (!start && clockWaiter >= 1500){
+    attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), isAwake, LOW);
+    Serial.println("Entering sleep");
+    (*out).clearLEDs();
+    delay(100);
+    enterSleepMode();
+  }
+  else if (start) {
+    (*out).startAnim();
+    Serial.println("gestartet");
+    start = false;
   }
   else {
       clockWaiter++;
+      Serial.println(clockWaiter);
   }
-    Serial.println(clockWaiter);
 }

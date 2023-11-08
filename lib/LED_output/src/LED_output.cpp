@@ -1,11 +1,30 @@
 #include <Arduino.h>
 #include <LED_output.h>
 
-const int* _pins;
-const int _pinCount;
 
-LED_output::LED_output(const int* pin, const int pinCount):_pins(pin), _pinCount(pinCount) {}
+const int* _pins; /** Zeiger auf die Nummer des ersten Pins*/
+const int _pinCount; /** Anzahl der zugewiesenen Pins*/
 
+/**
+ * Konstruiert eine Instanz der Klasse
+ * @param pin Zeiger auf die Belegung des ersten Pins
+ * @param pinCount Anzahl der Pins
+*/
+LED_output::LED_output(const int* pin, const int pinCount):_pins(pin), _pinCount(pinCount) {
+}
+
+/**
+ * 
+*/
+void LED_output::startAnim() {
+  for (int i=1; i<=6; i++) {
+    Serial.println("Startnummer: " + String(i));
+    delay(100);
+    displayNumber(i);
+    delay(200);
+    clearLEDs();
+  }
+}
 /**
  * Verdunkelt alle LEDs
 */
@@ -15,6 +34,10 @@ void LED_output::clearLEDs() {
   }
 }
 
+/**
+ * Stellt eine Nummer auf den LEDs dar
+ * @param num Darzustellende Nummer
+*/
 void LED_output::displayNumber(int num) {
     switch(num) {
     case 1: 
@@ -55,6 +78,9 @@ void LED_output::displayNumber(int num) {
       break;
     }
 }
+/**
+ * Initialisiert die benötigten Pins für die Ausgabe
+*/
 void LED_output::initPins() {
     for(int i=0; i < _pinCount;i++) {
     pinMode(*(_pins + i), OUTPUT);

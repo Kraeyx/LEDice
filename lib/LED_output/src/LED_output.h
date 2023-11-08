@@ -8,8 +8,9 @@ class LED_output {
  void displayNumber(int num);
  void clearLEDs();
  void initPins();
+ void startAnim();
  private:
  const int* _pins;
  const int _pinCount;
-};
+ };
 #endif
