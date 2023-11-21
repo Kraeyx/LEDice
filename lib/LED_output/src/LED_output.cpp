@@ -81,7 +81,9 @@ void LED_output::displayNumber(int num) {
       break;
     }
 }
-
+/**
+ * Lässt alle LEDs aufblinken
+*/
 void LED_output::blink() {
   clearLEDs();
   for (int i = 0; i < _pinCount; i++) {
