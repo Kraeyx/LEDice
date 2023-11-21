@@ -9,8 +9,9 @@ class LED_output {
  void clearLEDs();
  void initPins();
  void startAnim();
+ void blink();
  private:
  const int* _pins;
- const int _pinCount;
+ int _pinCount;
  };
 #endif

@@ -1,11 +1,11 @@
 #include <Arduino.h>
 #include <avr/sleep.h>
-#include <LED_output.h>;
+#include <LED_output.h>
 
 const int LED_COUNT = 7;
 const int LED_PINS[LED_COUNT] = {6,7,8,5,12,3,4};
 const int BUTTON_PIN = 2;
-LED_output* out;
+LED_output out(&LED_PINS[0], LED_COUNT);
 int clockWaiter;
 boolean start;
 
@@ -15,7 +15,8 @@ boolean start;
 void isAwake(void)
 {
   clockWaiter = 0;
-  detachInterrupt(BUTTON_PIN);
+  Serial.println("isAwake");
+  detachInterrupt(digitalPinToInterrupt(BUTTON_PIN));
   delay(200);
   start = true;
 }
@@ -25,6 +26,8 @@ void isAwake(void)
 */
 void enterSleepMode(void)
 {
+    Serial.println("Entering sleep");
+    delay(100);
     set_sleep_mode(SLEEP_MODE_PWR_DOWN);
     sleep_mode();
 }
@@ -34,9 +37,6 @@ void enterSleepMode(void)
 void setup() {
   Serial.begin(38400);
   clockWaiter = 0;
-  LED_output out_(&LED_PINS[0], LED_COUNT);
-  out = &out_;
-  (*out).initPins();
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   start = true;
 }
@@ -47,24 +47,24 @@ void setup() {
 */
 void loop() { 
   if (!start && !digitalRead(BUTTON_PIN)){
-    (*out).clearLEDs();
+    out.blink();
+    out.blink();
+    out.blink();
     int result = 1 + (rand() % 6);
-    Serial.println("Nummer: " + result);
-    delay(100);
-    (*out).displayNumber(result);
+    out.displayNumber(result);
     clockWaiter = 0;
     delay(500);
   }
-  else if (!start && clockWaiter >= 1500){
+  else if (!start && clockWaiter >= 3000){
     attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), isAwake, LOW);
-    Serial.println("Entering sleep");
-    (*out).clearLEDs();
+    out.clearLEDs();
     delay(100);
     enterSleepMode();
   }
   else if (start) {
-    (*out).startAnim();
+    out.startAnim();
     Serial.println("gestartet");
+    delay(500);
     start = false;
   }
   else {

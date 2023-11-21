@@ -3,14 +3,16 @@
 
 
 const int* _pins; /** Zeiger auf die Nummer des ersten Pins*/
-const int _pinCount; /** Anzahl der zugewiesenen Pins*/
+int _pinCount; /** Anzahl der zugewiesenen Pins*/
 
 /**
  * Konstruiert eine Instanz der Klasse
  * @param pin Zeiger auf die Belegung des ersten Pins
  * @param pinCount Anzahl der Pins
 */
-LED_output::LED_output(const int* pin, const int pinCount):_pins(pin), _pinCount(pinCount) {
+LED_output::LED_output(const int* pin, const int pinCount) {
+  _pins = pin;
+  _pinCount = pinCount;
 }
 
 /**
@@ -41,6 +43,7 @@ void LED_output::clearLEDs() {
 void LED_output::displayNumber(int num) {
     switch(num) {
     case 1: 
+      Serial.println("printing 1");
       digitalWrite(*(_pins+3), HIGH);
       break;
     case 2: 
@@ -77,6 +80,17 @@ void LED_output::displayNumber(int num) {
       Serial.print("Fehler! Nummer " + String(num) + " ist ungültig");
       break;
     }
+}
+
+void LED_output::blink() {
+  clearLEDs();
+  for (int i = 0; i < _pinCount; i++) {
+    digitalWrite(*(_pins+i), HIGH);
+    Serial.println();
+  }
+  delay(500);
+  clearLEDs();
+  delay(500);
 }
 /**
  * Initialisiert die benötigten Pins für die Ausgabe
