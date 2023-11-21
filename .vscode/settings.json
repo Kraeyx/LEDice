@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "/home/kraeyx/PlatformIO/Projects/Diodenwuerfel/.pio/libdeps/uno/Unity"
+    "cmake.sourceDirectory": "/home/kraeyx/PlatformIO/Projects/Diodenwuerfel/.pio/libdeps/uno/Unity",
+    "C_Cpp.default.compilerPath": "/home/kraeyx/.platformio/packages/toolchain-atmelavr/bin/avr-gcc"
 }
