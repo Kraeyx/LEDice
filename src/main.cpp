@@ -2,15 +2,17 @@
 #include <avr/sleep.h>
 #include <LED_output.h>
 
-const int LED_COUNT = 7;
-const int LED_PINS[LED_COUNT] = {6,7,8,5,12,3,4};
-const int BUTTON_PIN = 2;
+const int LED_COUNT = 7;  //Anzahl der LEDs
+const int LED_PINS[LED_COUNT] = {6,7,8,5,12,3,4}; //Pinbelegung der LEDs
+const int BUTTON_PIN = 2; //Pin, an den der Button angeschlossen ist
+const int RESULT_MINIMUM = 1; //Mindestens gewürfelte Zahl
+const int RESULT_MAXIMUM = 6; //Maximal gewürfelte Zahl
 LED_output out(&LED_PINS[0], LED_COUNT);
 int clockWaiter;
 boolean start;
 
 /**
- * Setzt den Taktzähler auf 0 und macht den Button eingabebereit
+ * Setzt den Taktzähler auf 0 und macht den Button nach dem Aufwachen eingabebereit
 */
 void isAwake(void)
 {
@@ -52,7 +54,7 @@ void loop() {
     out.blink();
     out.blink();
     randomSeed(analogRead(0));
-    int result = random(1, 6);
+    int result = random(RESULT_MINIMUM, RESULT_MAXIMUM);
     out.displayNumber(result);
     clockWaiter = 0;
     delay(500);
