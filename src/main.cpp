@@ -6,10 +6,10 @@ const int LED_COUNT = 7;  //Anzahl der LEDs
 const int LED_PINS[LED_COUNT] = {6,7,8,5,12,3,4}; //Pinbelegung der LEDs
 const int BUTTON_PIN = 2; //Pin, an den der Button angeschlossen ist
 const int RESULT_MINIMUM = 1; //Mindestens gewürfelte Zahl
-const int RESULT_MAXIMUM = 6; //Maximal gewürfelte Zahl
-LED_output out(&LED_PINS[0], LED_COUNT);
-int clockWaiter;
-boolean start;
+const int RESULT_MAXIMUM = 6; //Höchstens gewürfelte Zahl
+LED_output out(&LED_PINS[0], LED_COUNT, RESULT_MINIMUM, RESULT_MAXIMUM); //Instanz der Ausgabe
+int clockWaiter; // Taktzähler
+boolean start; //Information, ob ein Startvorgang läuft
 
 /**
  * Setzt den Taktzähler auf 0 und macht den Button nach dem Aufwachen eingabebereit
@@ -24,7 +24,7 @@ void isAwake(void)
 }
 
 /**
- * Started den Sleep-Modus
+ * Startet den Sleep-Modus
 */
 void enterSleepMode(void)
 {
@@ -73,6 +73,7 @@ void loop() {
   }
   else {
       clockWaiter++;
+      Serial.print("Takt:");
       Serial.println(clockWaiter);
   }
 }

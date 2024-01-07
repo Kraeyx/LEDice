@@ -4,7 +4,7 @@
 
 class LED_output {
  public:
- LED_output(const int* pins, const int pinCount);
+ LED_output(const int* pins, const int pinCount, const int minNumber, const int maxNumber);
  void displayNumber(int num);
  void clearLEDs();
  void initPins();

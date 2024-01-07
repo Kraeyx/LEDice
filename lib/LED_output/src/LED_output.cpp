@@ -2,24 +2,28 @@
 #include <LED_output.h>
 
 
-const int* _pins; /** Zeiger auf die Nummer des ersten Pins*/
+const int* _pins; /** Zeiger auf den ersten Pin*/
 int _pinCount; /** Anzahl der zugewiesenen Pins*/
+int MIN_NUMBER; /** Minimal darstellbare Zahl*/
+int MAX_NUMBER; /** Maximal darstellbare Zahl*/
 
 /**
  * Konstruiert eine Instanz der Klasse
  * @param pin Zeiger auf die Belegung des ersten Pins
  * @param pinCount Anzahl der Pins
 */
-LED_output::LED_output(const int* pin, const int pinCount) {
+LED_output::LED_output(const int* pin, const int pinCount, const int minNumber, const int maxNumber) {
   _pins = pin;
   _pinCount = pinCount;
+  MIN_NUMBER = minNumber;
+  MAX_NUMBER = maxNumber;
 }
 
 /**
  * 
 */
 void LED_output::startAnim() {
-  for (int i=1; i<=6; i++) {
+  for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++) {
     Serial.println("Startnummer: " + String(i));
     delay(100);
     displayNumber(i);
