@@ -7,6 +7,7 @@ const int LED_PINS[LED_COUNT] = {6,7,8,5,12,3,4}; //Pinbelegung der LEDs
 const int BUTTON_PIN = 2; //Pin, an den der Button angeschlossen ist
 const int RESULT_MINIMUM = 1; //Mindestens gewürfelte Zahl
 const int RESULT_MAXIMUM = 6; //Höchstens gewürfelte Zahl
+const int sleepClock = 3000; //Taktzahl, nach der der Ruhemodus eingeschaltet wird
 LED_output out(&LED_PINS[0], LED_COUNT, RESULT_MINIMUM, RESULT_MAXIMUM); //Instanz der Ausgabe
 int clockWaiter; // Taktzähler
 boolean start; //Information, ob ein Startvorgang läuft
@@ -59,7 +60,7 @@ void loop() {
     clockWaiter = 0;
     delay(500);
   }
-  else if (!start && clockWaiter >= 3000){
+  else if (!start && clockWaiter >= sleepClock){
     attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), isAwake, LOW);
     out.clearLEDs();
     delay(100);
