@@ -45,9 +45,10 @@ void LED_output::clearLEDs() {
  * @param num Darzustellende Nummer
 */
 void LED_output::displayNumber(int num) {
-    switch(num) {
+  Serial.print("Printing ");
+  Serial.println(num);
+  switch(num) {
     case 1: 
-      Serial.println("printing 1");
       digitalWrite(*(_pins+3), HIGH);
       break;
     case 2: 
@@ -83,7 +84,7 @@ void LED_output::displayNumber(int num) {
     default: 
       Serial.print("Fehler! Nummer " + String(num) + " ist ungültig");
       break;
-    }
+  }
 }
 /**
  * Lässt alle LEDs aufblinken

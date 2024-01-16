@@ -48,8 +48,8 @@ void setup() {
   clockWaiter = 0;
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   out.initPins();
-  randomSeed(analogRead(0));
   start = true;
+  randomSeed(analogRead(A0));
 }
 
 
@@ -62,8 +62,8 @@ void loop() {
     out.blink();
     out.blink();
     out.blink();
-    randomSeed(analogRead(0));
-    int result = random(RESULT_MINIMUM, RESULT_MAXIMUM);
+    int result = random(RESULT_MINIMUM, RESULT_MAXIMUM+1);
+    Serial.println(result);
     out.displayNumber(result);
     clockWaiter = 0;
     delay(500);
