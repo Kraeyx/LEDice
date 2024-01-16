@@ -1,9 +1,11 @@
 #include <Arduino.h>
 #include <LED_output.h>
 
+/* Zeiger auf die Nummer des ersten Pins*/
+const int* _pins; 
 
-const int* _pins; /** Zeiger auf die Nummer des ersten Pins*/
-int _pinCount; /** Anzahl der zugewiesenen Pins*/
+/* Anzahl der zugewiesenen Pins*/
+int _pinCount; 
 
 /**
  * Konstruiert eine Instanz der Klasse
@@ -16,7 +18,7 @@ LED_output::LED_output(const int* pin, const int pinCount) {
 }
 
 /**
- * 
+ * Spielt eine Animation ab, bei der alle Zahlen von 1 bis 6 dargestellt werden
 */
 void LED_output::startAnim() {
   for (int i=1; i<=6; i++) {
