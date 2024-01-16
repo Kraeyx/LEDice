@@ -1,0 +1,7 @@
+Folgende Ressourcen werden für den Projektaufbau benötigt:
+- Arduino Uno R3
+- Breadboard
+- LED (7x)
+- Widerstand: 270 Ohm (7x)
+- Taster-Button
+- Jumper-Kabel (?x)

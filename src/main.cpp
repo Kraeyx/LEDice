@@ -8,28 +8,18 @@ Knopfdruck beendet werden kann.
 #include <avr/sleep.h>
 #include <LED_output.h>
 
-
-//Anzahl der LEDs
-const int LED_COUNT = 7;
-
-//Pins, an denen die LEDs angeschlossen sind
-const int LED_PINS[LED_COUNT] = {6,7,8,5,12,3,4};
-
-//Pin, an dem der Taster angeschlossen ist
-const int BUTTON_PIN = 2;
-
-//Instanz der Ausgabebibliothek
-LED_output out(&LED_PINS[0], LED_COUNT);
-
-//Zähler zum Messen des Zeitabstandes seit dem letzten Würfeln
-int clockWaiter;
-
-//Information, ob ein Startvorgang im Gang ist
-boolean start;
-
+const int LED_COUNT = 7;  //Anzahl der LEDs
+const int LED_PINS[LED_COUNT] = {6,7,8,5,12,3,4}; //Pinbelegung der LEDs
+const int BUTTON_PIN = 2; //Pin, an den der Button angeschlossen ist
+const int RESULT_MINIMUM = 1; //Mindestens gewürfelte Zahl
+const int RESULT_MAXIMUM = 6; //Höchstens gewürfelte Zahl
+const int sleepClock = 3000; //Taktzahl, nach der der Ruhemodus eingeschaltet wird
+LED_output out(&LED_PINS[0], LED_COUNT, RESULT_MINIMUM, RESULT_MAXIMUM); //Instanz der Ausgabe
+int clockWaiter; // Taktzähler
+boolean start; //Information, ob ein Startvorgang läuft
 
 /**
- * Setzt den Taktzähler auf 0 und macht den Button eingabebereit
+ * Setzt den Taktzähler auf 0 und macht den Button nach dem Aufwachen eingabebereit
 */
 void isAwake(void)
 {
@@ -41,7 +31,7 @@ void isAwake(void)
 }
 
 /**
- * Started den Sleep-Modus
+ * Startet den Sleep-Modus
 */
 void enterSleepMode(void)
 {
@@ -72,13 +62,13 @@ void loop() {
     out.blink();
     out.blink();
     randomSeed(analogRead(0));
-    int result = random(1, 6);
+    int result = random(RESULT_MINIMUM, RESULT_MAXIMUM);
     out.displayNumber(result);
     clockWaiter = 0;
     delay(500);
   }
-  //Wenn zu lange nicht gewürfelt wurde, wird der Ruhemodus gestartet
-  else if (!start && clockWaiter >= 3000){
+    //Wenn zu lange nicht gewürfelt wurde, wird der Ruhemodus gestartet
+  else if (!start && clockWaiter >= sleepClock){
     attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), isAwake, LOW);
     out.clearLEDs();
     delay(100);
@@ -94,6 +84,7 @@ void loop() {
   //Inkrementierung des Taktzählers
   else {
       clockWaiter++;
+      Serial.print("Takt:");
       Serial.println(clockWaiter);
   }
 }
