@@ -47,6 +47,7 @@ void setup() {
   Serial.begin(38400);
   clockWaiter = 0;
   pinMode(BUTTON_PIN, INPUT_PULLUP);
+  out.initPins();
   randomSeed(analogRead(0));
   start = true;
 }

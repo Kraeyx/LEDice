@@ -1,8 +1,6 @@
 #include <Arduino.h>
 #include <LED_output.h>
 
-/* Zeiger auf die Nummer des ersten Pins*/
-const int* _pins; 
 
 const int* _pins; /** Zeiger auf den ersten Pin*/
 int _pinCount; /** Anzahl der zugewiesenen Pins*/
@@ -96,9 +94,9 @@ void LED_output::blink() {
     digitalWrite(*(_pins+i), HIGH);
     Serial.println();
   }
-  delay(500);
+  delay(200);
   clearLEDs();
-  delay(500);
+  delay(100);
 }
 /**
  * Initialisiert die benötigten Pins für die Ausgabe
