@@ -20,7 +20,7 @@ LED_output::LED_output(const int* pin, const int pinCount, const int minNumber, 
 }
 
 /**
- * 
+ * Spielt eine Animation ab, bei der alle Zahlen von 1 bis 6 dargestellt werden
 */
 void LED_output::startAnim() {
   for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++) {
@@ -45,9 +45,10 @@ void LED_output::clearLEDs() {
  * @param num Darzustellende Nummer
 */
 void LED_output::displayNumber(int num) {
-    switch(num) {
+  Serial.print("Printing ");
+  Serial.println(num);
+  switch(num) {
     case 1: 
-      Serial.println("printing 1");
       digitalWrite(*(_pins+3), HIGH);
       break;
     case 2: 
@@ -83,7 +84,7 @@ void LED_output::displayNumber(int num) {
     default: 
       Serial.print("Fehler! Nummer " + String(num) + " ist ungültig");
       break;
-    }
+  }
 }
 /**
  * Lässt alle LEDs aufblinken
@@ -94,9 +95,9 @@ void LED_output::blink() {
     digitalWrite(*(_pins+i), HIGH);
     Serial.println();
   }
-  delay(500);
+  delay(200);
   clearLEDs();
-  delay(500);
+  delay(100);
 }
 /**
  * Initialisiert die benötigten Pins für die Ausgabe

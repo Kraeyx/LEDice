@@ -1,3 +1,9 @@
+/**
+Ein Programm, welches einen Würfel darstellt. Zu Beginn und vor jedem Würfelvorgang wird eine Animation abgespielt.
+Ein Würfelvorgang erfolgt auf Knopfdruck. Wird zu lange nicht gewürfelt, wird ein Ruhemodus eingeschaltet, der durch einen
+Knopfdruck beendet werden kann.
+ @author Deu
+*/
 #include <Arduino.h>
 #include <avr/sleep.h>
 #include <LED_output.h>
@@ -41,8 +47,9 @@ void setup() {
   Serial.begin(38400);
   clockWaiter = 0;
   pinMode(BUTTON_PIN, INPUT_PULLUP);
-  randomSeed(analogRead(0));
+  out.initPins();
   start = true;
+  randomSeed(analogRead(A0));
 }
 
 
@@ -50,28 +57,32 @@ void setup() {
  * Testet auf einen Knopfdruck und führt, wenn nötig, den Würfelvorgang durch
 */
 void loop() { 
+  //Wenn kein Starvorgang ausgeführt wird und der Knopf gedrückt wurde, wird eine Zahl gewürfelt und angezeigt
   if (!start && !digitalRead(BUTTON_PIN)){
     out.blink();
     out.blink();
     out.blink();
-    randomSeed(analogRead(0));
-    int result = random(RESULT_MINIMUM, RESULT_MAXIMUM);
+    int result = random(RESULT_MINIMUM, RESULT_MAXIMUM+1);
+    Serial.println(result);
     out.displayNumber(result);
     clockWaiter = 0;
     delay(500);
   }
+    //Wenn zu lange nicht gewürfelt wurde, wird der Ruhemodus gestartet
   else if (!start && clockWaiter >= SLEEP_CLOCK){
     attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), isAwake, LOW);
     out.clearLEDs();
     delay(100);
     enterSleepMode();
   }
+  //Ausführen des Startvorgangs wenn nötig
   else if (start) {
     out.startAnim();
     Serial.println("gestartet");
     delay(500);
     start = false;
   }
+  //Inkrementierung des Taktzählers
   else {
       clockWaiter++;
       Serial.print("Takt:");
