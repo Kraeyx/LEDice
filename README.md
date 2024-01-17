@@ -7,6 +7,6 @@ Das Projekt besteht aus 7 LEDs, die jeweils einen Vorwiderstand besitzen sowie e
 ![Schaltplan](https://github.com/Kraeyx/Diodenwuerfel/assets/131872822/c055aabe-4f51-47bc-a512-298162e817f8)
 ## Funktionsweise
 Zum Anschalten des Projektes den Knopf betätigen. Nach einer Startanimation kann durch erneutes Drücken ein Würfelvorgang durchgeführt werden. Dies lässt sich beliebig oft wiederholen. Sollte zu lange kein Würfelvorgang durchgeführt worden sein, geht das Projekt in einen Ruhezustand über, aus dem es durch erneutes Drücken des Knopfes wieder geweckt werden kann.
-[!Bedienungszyklus](https://github.com/Kraeyx/Diodenwuerfel/assets/131872822/4235a37f-b2ce-4701-979d-85947c56ef22)
+![Bedienungszyklus](https://github.com/Kraeyx/Diodenwuerfel/assets/131872822/4235a37f-b2ce-4701-979d-85947c56ef22)
 
 
