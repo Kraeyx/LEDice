@@ -6,6 +6,6 @@ Ein Arduino-Projekt, welches zufällige Zahlen innerhalb eines definierten Berei
 Das Projekt besteht aus 7 LEDs, die jeweils einen Vorwiderstand besitzen sowie einem Taster und einem Arduino Uno R3. Genauere Spezifikationen lassen sich der Stückliste und dem Schaltplan im Ordner res sowie der Entwicklerdokumentation entnehmen.
 ![Schaltplan](https://github.com/Kraeyx/Diodenwuerfel/assets/131872822/c055aabe-4f51-47bc-a512-298162e817f8)
 ## Funktionsweise
-Zum Anschalten des Projektes den Knopf betätigen. Nach einer Startanimation kann durch erneutes Drücken ein Würfelvorgang durchgeführt werden. Dies lässt sich beliebig oft wiederholen. Sollte zu lange kein Würfelvorgang durchgeführt worden sein, geht das Projekt in einen Ruhezustand über, aus dem es durch erneutes Drücken des Knopfes wieder geweckt werden kann.
+Zum Anschalten des Projektes den Knopf betätigen. Nach einer Startanimation kann durch erneutes Drücken ein Würfelvorgang durchgeführt werden. Dies lässt sich beliebig oft wiederholen. Sollte zu lange kein Würfelvorgang durchgeführt worden sein, geht das Projekt in einen Ruhezustand über, aus dem es durch erneutes Drücken des Knopfes wieder geweckt werden kann. Das sieht in der Praxis wie folgt aus: (Klicken, um eine Aufzeichnung eines Würfelvorgangs zu erreichen).
 [![Bedienungszyklus](https://github.com/Kraeyx/LEDice/assets/131872822/ae686b5f-a76f-43e9-a3a3-0dbc358b5446)](https://github.com/Kraeyx/Diodenwuerfel/assets/131872822/4235a37f-b2ce-4701-979d-85947c56ef22)
 
