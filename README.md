@@ -1,7 +1,8 @@
 # LEDice
 Ein Arduino-Projekt, welches zufällige Zahlen innerhalb eines definierten Bereichs auswürfeln und diese über an den Arduino angeschlossene LED-Lampen ausgeben kann. Zu Beginn wird eine Startanimation abgespielt, bei der die Muster aller hinterlegter Zahlen dargestellt werden. Danach geht das System in eine Wartephase über, bei der jeder Knopfdruck zum Abspielen einer Würfelanimation, dem Ermitteln einer zufälligen Zahl und dem Anzeigen der Zahl führt. Dieser Vorgang ist beliebig oft wiederholbar. Wird zu lange kein Würfelvorgang angefordert, werden die Lampen ausgeschaltet und das System geht in einen Ruhemodus über, aus dem es durch einen weiteren Knopfdruck geweckt werden kann.
 
-![Würfelaufbau](https://github.com/Kraeyx/Diodenwuerfel/assets/131872822/679ae528-9287-4965-9221-824761dedfe2)
+![Würfelaufbau](https://github.com/Kraeyx/LEDice/assets/131872822/283193c9-4055-45be-9904-3105fe39defc)
+
 ## Aufbau
 Das Projekt besteht aus 7 LEDs, die jeweils einen Vorwiderstand besitzen sowie einem Taster und einem Arduino Uno R3. Genauere Spezifikationen lassen sich der Stückliste und dem Schaltplan im Ordner res sowie der Entwicklerdokumentation entnehmen.
 ![Schaltplan](https://github.com/Kraeyx/Diodenwuerfel/assets/131872822/c055aabe-4f51-47bc-a512-298162e817f8)
