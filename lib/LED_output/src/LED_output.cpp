@@ -1,3 +1,8 @@
+/**
+ * @file LED_output.cpp
+ * Bibliothek, die die Ausgabe von Zahlen auf einem Muster aus an übergebenen LEDs regelt.
+ * @author Deu
+*/
 #include <Arduino.h>
 #include <LED_output.h>
 
@@ -11,6 +16,8 @@ int MAX_NUMBER; /** Maximal darstellbare Zahl*/
  * Konstruiert eine Instanz der Klasse
  * @param pin Zeiger auf die Belegung des ersten Pins
  * @param pinCount Anzahl der Pins
+ * @param minNumber Minimal würfelbare Zahl
+ * @param MaxNumber Maximal würfelbare Zahl
 */
 LED_output::LED_output(const int* pin, const int pinCount, const int minNumber, const int maxNumber) {
   _pins = pin;

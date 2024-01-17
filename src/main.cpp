@@ -1,8 +1,9 @@
 /**
-Ein Programm, welches einen Würfel darstellt. Zu Beginn und vor jedem Würfelvorgang wird eine Animation abgespielt.
-Ein Würfelvorgang erfolgt auf Knopfdruck. Wird zu lange nicht gewürfelt, wird ein Ruhemodus eingeschaltet, der durch einen
-Knopfdruck beendet werden kann.
- @author Deu
+ * @file main.cpp
+ * Ein Programm, welches einen Würfel darstellt. Zu Beginn und vor jedem Würfelvorgang wird eine Animation abgespielt.
+ * Ein Würfelvorgang erfolgt auf Knopfdruck. Wird zu lange nicht gewürfelt, wird ein Ruhemodus eingeschaltet, der durch einen
+ * Knopfdruck beendet werden kann.
+ * @author Deu
 */
 #include <Arduino.h>
 #include <avr/sleep.h>

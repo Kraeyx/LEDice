@@ -1,3 +1,8 @@
+/**
+ * @file LED_output.h
+ * Header-Datei der Bibliothek LED_output, die die Ausgabe einer Zahl auf einem Muster LEDs ausgibt.
+ * @author Deu
+*/
 #ifndef LED_output_h
 #define LED_output_h
 #include "Arduino.h"
@@ -13,5 +18,7 @@ class LED_output {
  private:
  const int* _pins;
  int _pinCount;
+ int MIN_NUMBER;
+ int MAX_NUMBER;
  };
 #endif
