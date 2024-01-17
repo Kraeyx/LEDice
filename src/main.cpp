@@ -8,7 +8,7 @@ Knopfdruck beendet werden kann.
 #include <avr/sleep.h>
 #include <LED_output.h>
 
-const int LED_COUNT = 7;  //Anzahl der LEDs
+const int LED_COUNT = 6;  //Anzahl der LEDs
 const int LED_PINS[LED_COUNT] = {6,7,8,5,12,3}; //Pinbelegung der LEDs
 const int BUTTON_PIN = 2; //Pin, an den der Button angeschlossen ist
 const int RESULT_MINIMUM = 1; //Mindestens gewürfelte Zahl
