@@ -49,37 +49,37 @@ void LED_output::displayNumber(int num) {
   Serial.println(num);
   switch(num) {
     case 1: 
-      digitalWrite(*(_pins+3), HIGH);
+      digitalWrite(*(_pins), HIGH);
       break;
     case 2: 
       digitalWrite(*_pins, HIGH);
-      digitalWrite(*(_pins+6), HIGH);
+      digitalWrite(*(_pins+1), HIGH);
       break;
     case 3:
       digitalWrite(*_pins, HIGH);
-      digitalWrite(*(_pins+3), HIGH);
-      digitalWrite(*(_pins+6), HIGH);
+      digitalWrite(*(_pins+1), HIGH);
+      digitalWrite(*(_pins+2), HIGH);
       break;
     case 4: 
       digitalWrite(*_pins, HIGH);
+      digitalWrite(*(_pins+1), HIGH);
       digitalWrite(*(_pins+2), HIGH);
-      digitalWrite(*(_pins+4), HIGH);
-      digitalWrite(*(_pins+6), HIGH);
+      digitalWrite(*(_pins+3), HIGH);
       break;
     case 5: 
       digitalWrite(*_pins, HIGH);
+      digitalWrite(*(_pins+1), HIGH);
       digitalWrite(*(_pins+2), HIGH);
       digitalWrite(*(_pins+3), HIGH);
       digitalWrite(*(_pins+4), HIGH);
-      digitalWrite(*(_pins+6), HIGH);
       break;
     case 6:
       digitalWrite(*_pins, HIGH);
       digitalWrite(*(_pins+1), HIGH);
       digitalWrite(*(_pins+2), HIGH);
+      digitalWrite(*(_pins+3), HIGH);
       digitalWrite(*(_pins+4), HIGH);
       digitalWrite(*(_pins+5), HIGH);
-      digitalWrite(*(_pins+6), HIGH);
       break;
     default: 
       Serial.print("Fehler! Nummer " + String(num) + " ist ungültig");
